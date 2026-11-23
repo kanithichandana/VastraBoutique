@@ -9,11 +9,12 @@
   <link rel="icon" type="image/svg+xml" href="docs/assets/boutique/img/favicon.svg">
   <link rel="stylesheet" href="docs/assets/boutique/css/app.css?v=2">
   <link rel="stylesheet" href="docs/assets/boutique/css/storefront.css?v=7">
+<link rel="stylesheet" href="docs/assets/static-preview.css">
 </head>
 <body class="storefront-page">
   <header class="store-header">
     <div class="store-header-main">
-      <a class="store-brand" href="index.html">
+      <a class="store-brand" href="/">
         <img class="brand-logo" src="docs/assets/boutique/img/vastra-logo.svg" alt="" width="52" height="52">
         <span class="brand-words"><strong>Vastra</strong><small>boutique</small></span>
       </a>
@@ -24,7 +25,7 @@
       </nav>
 
       <div class="store-search">
-        <form class="store-search-form" method="get" action="index.html#products" role="search">
+        <form class="store-search-form" data-static-search method="get" action="/#products" role="search">
           
           <label class="sr-only" for="store-search">Search the collection</label>
           <input id="store-search" type="search" name="q" value=""
@@ -37,16 +38,17 @@
             </svg>
           </button>
         </form>
+          <a class="store-search-clear" href="#products" data-clear-search hidden>Clear</a>
         
       </div>
 
       <div class="store-actions">
-        
-          <a class="store-link" href="index.html">Sign in</a>
-          <a class="store-link" href="index.html">Create account</a>
-        
-        <button type="button" class="cart-button" data-open-cart>
-          Cart <span class="cart-count">0</span>
+          <button type="button" class="store-link link-button" data-header-login data-open-login>Sign in</button>
+          <button type="button" class="store-link link-button" data-header-signup data-open-signup>Create account</button>
+          <span class="account-chip" data-account-chip hidden></span>
+          <button type="button" class="store-link link-button" data-logout hidden>Sign out</button>
+          <button type="button" class="cart-button" data-open-cart>
+          Cart <span class="cart-count" data-cart-count>0</span>
         </button>
       </div>
     </div>
@@ -82,7 +84,7 @@
         <div class="category-arches">
           
             <a class="category-arch "
-               href="?category=SAREE#products">
+               href="#products" data-category="SAREE">
               <span class="category-thumb">
                 <img src="docs/assets/boutique/img/categories/saree.jpg" alt="Sarees"
                      width="640" height="800" loading="lazy">
@@ -91,7 +93,7 @@
             </a>
           
             <a class="category-arch "
-               href="?category=KURTA#products">
+               href="#products" data-category="KURTA">
               <span class="category-thumb">
                 <img src="docs/assets/boutique/img/categories/kurta.jpg" alt="Kurta"
                      width="640" height="800" loading="lazy">
@@ -100,7 +102,7 @@
             </a>
           
             <a class="category-arch "
-               href="?category=LEHENGA#products">
+               href="#products" data-category="LEHENGA">
               <span class="category-thumb">
                 <img src="docs/assets/boutique/img/categories/lehenga.jpg" alt="Lehenga"
                      width="640" height="800" loading="lazy">
@@ -109,7 +111,7 @@
             </a>
           
             <a class="category-arch "
-               href="?category=DUPATTA#products">
+               href="#products" data-category="DUPATTA">
               <span class="category-thumb">
                 <img src="docs/assets/boutique/img/categories/dupatta.jpg" alt="Dupatta"
                      width="640" height="800" loading="lazy">
@@ -118,7 +120,7 @@
             </a>
           
             <a class="category-arch "
-               href="?category=GOWN#products">
+               href="#products" data-category="GOWN">
               <span class="category-thumb">
                 <img src="docs/assets/boutique/img/categories/gown.jpg" alt="Gowns"
                      width="640" height="800" loading="lazy">
@@ -127,7 +129,7 @@
             </a>
           
             <a class="category-arch "
-               href="?category=SALWAR_SUIT#products">
+               href="#products" data-category="SALWAR_SUIT">
               <span class="category-thumb">
                 <img src="docs/assets/boutique/img/categories/salwar-suit.jpg" alt="Salwar suit"
                      width="640" height="800" loading="lazy">
@@ -136,7 +138,7 @@
             </a>
           
             <a class="category-arch "
-               href="?category=OTHER#products">
+               href="#products" data-category="OTHER">
               <span class="category-thumb">
                 <img src="docs/assets/boutique/img/categories/more.jpg" alt="More"
                      width="640" height="800" loading="lazy">
@@ -160,211 +162,7 @@
       </div>
 
       
-        <div class="product-grid">
-          
-            <article class="product-card">
-  <div class="product-image">
-    
-      <img src="docs/assets/product-images/dresses/2026/11/banarasi-silk-saree.jpg" alt="Banarasi Silk Saree">
-    
-    <span class="product-code">DRS-000001</span>
-  </div>
-  <div class="product-body">
-    <p class="product-category">Saree</p>
-    <h3>Banarasi Silk Saree</h3>
-    <p class="product-meta">Maroon · FREE · Pure Silk</p>
-    <div class="product-footer">
-      <strong class="product-price">₹12500.00</strong>
-      
-        
-          <a class="add-cart add-cart-link" href="index.html">Add to cart</a>
-        
-      
-    </div>
-  </div>
-</article>
-
-          
-            <article class="product-card">
-  <div class="product-image">
-    
-      <img src="docs/assets/product-images/dresses/2026/11/chikankari-kurta-set.jpg" alt="Chikankari Kurta Set">
-    
-    <span class="product-code">DRS-000003</span>
-  </div>
-  <div class="product-body">
-    <p class="product-category">Kurta / Kurti</p>
-    <h3>Chikankari Kurta Set</h3>
-    <p class="product-meta">Cream · M · Cotton</p>
-    <div class="product-footer">
-      <strong class="product-price">₹4200.00</strong>
-      
-        
-          <a class="add-cart add-cart-link" href="index.html">Add to cart</a>
-        
-      
-    </div>
-  </div>
-</article>
-
-          
-            <article class="product-card">
-  <div class="product-image">
-    
-      <img src="docs/assets/product-images/dresses/2026/11/cotton-salwar-suit.jpg" alt="Cotton Salwar Suit">
-    
-    <span class="product-code">DRS-000008</span>
-  </div>
-  <div class="product-body">
-    <p class="product-category">Salwar Suit</p>
-    <h3>Cotton Salwar Suit</h3>
-    <p class="product-meta">Indigo · XL · Cotton</p>
-    <div class="product-footer">
-      <strong class="product-price">₹3400.00</strong>
-      
-        
-          <a class="add-cart add-cart-link" href="index.html">Add to cart</a>
-        
-      
-    </div>
-  </div>
-</article>
-
-          
-            <article class="product-card">
-  <div class="product-image">
-    
-      <img src="docs/assets/product-images/dresses/2026/11/festive-anarkali-gown.jpg" alt="Festive Anarkali Gown">
-    
-    <span class="product-code">DRS-000006</span>
-  </div>
-  <div class="product-body">
-    <p class="product-category">Gown</p>
-    <h3>Festive Anarkali Gown</h3>
-    <p class="product-meta">Emerald · S · Chiffon</p>
-    <div class="product-footer">
-      <strong class="product-price">₹9700.00</strong>
-      
-        
-          <a class="add-cart add-cart-link" href="index.html">Add to cart</a>
-        
-      
-    </div>
-  </div>
-</article>
-
-          
-            <article class="product-card">
-  <div class="product-image">
-    
-      <img src="docs/assets/product-images/dresses/2026/11/hand-embroidered-dupatta.jpg" alt="Hand embroidered Dupatta">
-    
-    <span class="product-code">DRS-000005</span>
-  </div>
-  <div class="product-body">
-    <p class="product-category">Dupatta</p>
-    <h3>Hand embroidered Dupatta</h3>
-    <p class="product-meta">Ivory · FREE · Georgette</p>
-    <div class="product-footer">
-      <strong class="product-price">₹2800.00</strong>
-      
-        
-          <a class="add-cart add-cart-link" href="index.html">Add to cart</a>
-        
-      
-    </div>
-  </div>
-</article>
-
-          
-            <article class="product-card">
-  <div class="product-image">
-    
-      <img src="docs/assets/product-images/dresses/2026/11/kanjivaram-bridal-saree.jpg" alt="Kanjivaram Bridal Saree">
-    
-    <span class="product-code">DRS-000002</span>
-  </div>
-  <div class="product-body">
-    <p class="product-category">Saree</p>
-    <h3>Kanjivaram Bridal Saree</h3>
-    <p class="product-meta">Antique Gold · FREE · Silk</p>
-    <div class="product-footer">
-      <strong class="product-price">₹24500.00</strong>
-      
-        
-          <a class="add-cart add-cart-link" href="index.html">Add to cart</a>
-        
-      
-    </div>
-  </div>
-</article>
-
-          
-            <article class="product-card">
-  <div class="product-image">
-    
-      <img src="docs/assets/product-images/dresses/2026/11/kashmiri-pashmina-shawl.jpg" alt="Kashmiri Pashmina Shawl">
-    
-    <span class="product-code">DRS-000007</span>
-  </div>
-  <div class="product-body">
-    <p class="product-category">Other</p>
-    <h3>Kashmiri Pashmina Shawl</h3>
-    <p class="product-meta">Rust · FREE · Pashmina</p>
-    <div class="product-footer">
-      <strong class="product-price">₹15600.00</strong>
-      
-        <span class="unavailable">Unavailable</span>
-      
-    </div>
-  </div>
-</article>
-
-          
-            <article class="product-card">
-  <div class="product-image">
-    
-      <img src="docs/assets/product-images/dresses/2026/11/saree5.webp" alt="Soch Wine Georgette Embroidered Saree">
-    
-    <span class="product-code">DRS-000009</span>
-  </div>
-  <div class="product-body">
-    <p class="product-category">Saree</p>
-    <h3>Soch Wine Georgette Embroidered Saree</h3>
-    <p class="product-meta">Wine · FREE · Georgette</p>
-    <div class="product-footer">
-      <strong class="product-price">₹6998.00</strong>
-      
-        
-          <a class="add-cart add-cart-link" href="index.html">Add to cart</a>
-        
-      
-    </div>
-  </div>
-</article>
-
-          
-            <article class="product-card">
-  <div class="product-image">
-    
-      <img src="docs/assets/product-images/dresses/2026/11/velvet-lehenga.jpg" alt="Velvet Lehenga">
-    
-    <span class="product-code">DRS-000004</span>
-  </div>
-  <div class="product-body">
-    <p class="product-category">Lehenga</p>
-    <h3>Velvet Lehenga</h3>
-    <p class="product-meta">Wine · L · Velvet</p>
-    <div class="product-footer">
-      <strong class="product-price">₹18500.00</strong>
-      
-        
-          <a class="add-cart add-cart-link" href="index.html">Add to cart</a>
-        
-      
-    </div>
-  </div>
-</article>
+        <div class="product-grid" id="static-product-results">
 
           
         </div>
@@ -414,22 +212,53 @@
       <h2>Your cart</h2>
       <button type="button" class="modal-close" data-close-cart aria-label="Close">×</button>
     </div>
-    <div class="cart-body">
-      
-        <p class="cart-empty">
-          Sign in to start your cart.
-        </p>
-      
-    </div>
+    <div class="cart-body" data-cart-body></div>
     <div class="cart-foot">
-      <div class="cart-total"><span>Total</span><strong>₹0.00</strong></div>
+      <div class="cart-total"><span>Total</span><strong data-cart-total>₹0.00</strong></div>
       <p class="cart-hint">Your cart is saved to your account. The boutique will confirm stock when you get in touch.</p>
-      
-        <a class="store-btn primary full" href="index.html">Sign in to add items</a>
-      
+      <button type="button" class="store-btn primary full" data-cart-cta data-open-login>Sign in to add items</button>
     </div>
   </aside>
 
   <script src="docs/assets/boutique/js/storefront.js?v=2"></script>
+<script id="vastra-static-data" type="application/json">{"products": [{"code": "DRS-000001", "name": "Banarasi Silk Saree", "category": "SAREE", "categoryLabel": "Saree", "size": "FREE", "color": "Maroon", "fabric": "Pure Silk", "price": "12500.00", "stock": 6, "description": "Handpicked banarasi silk saree from the Vastra collection.", "available": true, "image": "docs/assets/product-images/dresses/2026/11/banarasi-silk-saree.jpg"}, {"code": "DRS-000003", "name": "Chikankari Kurta Set", "category": "KURTA", "categoryLabel": "Kurta / Kurti", "size": "M", "color": "Cream", "fabric": "Cotton", "price": "4200.00", "stock": 2, "description": "Handpicked chikankari kurta set from the Vastra collection.", "available": true, "image": "docs/assets/product-images/dresses/2026/11/chikankari-kurta-set.jpg"}, {"code": "DRS-000008", "name": "Cotton Salwar Suit", "category": "SALWAR_SUIT", "categoryLabel": "Salwar Suit", "size": "XL", "color": "Indigo", "fabric": "Cotton", "price": "3400.00", "stock": 7, "description": "Handpicked cotton salwar suit from the Vastra collection.", "available": true, "image": "docs/assets/product-images/dresses/2026/11/cotton-salwar-suit.jpg"}, {"code": "DRS-000006", "name": "Festive Anarkali Gown", "category": "GOWN", "categoryLabel": "Gown", "size": "S", "color": "Emerald", "fabric": "Chiffon", "price": "9700.00", "stock": 2, "description": "Handpicked festive anarkali gown from the Vastra collection.", "available": true, "image": "docs/assets/product-images/dresses/2026/11/festive-anarkali-gown.jpg"}, {"code": "DRS-000005", "name": "Hand embroidered Dupatta", "category": "DUPATTA", "categoryLabel": "Dupatta", "size": "FREE", "color": "Ivory", "fabric": "Georgette", "price": "2800.00", "stock": 3, "description": "Handpicked hand embroidered dupatta from the Vastra collection.", "available": true, "image": "docs/assets/product-images/dresses/2026/11/hand-embroidered-dupatta.jpg"}, {"code": "DRS-000002", "name": "Kanjivaram Bridal Saree", "category": "SAREE", "categoryLabel": "Saree", "size": "FREE", "color": "Antique Gold", "fabric": "Silk", "price": "24500.00", "stock": 3, "description": "Handpicked kanjivaram bridal saree from the Vastra collection.", "available": true, "image": "docs/assets/product-images/dresses/2026/11/kanjivaram-bridal-saree.jpg"}, {"code": "DRS-000007", "name": "Kashmiri Pashmina Shawl", "category": "OTHER", "categoryLabel": "Other", "size": "FREE", "color": "Rust", "fabric": "Pashmina", "price": "15600.00", "stock": 0, "description": "Handpicked kashmiri pashmina shawl from the Vastra collection.", "available": false, "image": "docs/assets/product-images/dresses/2026/11/kashmiri-pashmina-shawl.jpg"}, {"code": "DRS-000009", "name": "Soch Wine Georgette Embroidered Saree", "category": "SAREE", "categoryLabel": "Saree", "size": "FREE", "color": "Wine", "fabric": "Georgette", "price": "6998.00", "stock": 2, "description": "Flowing evening-wear georgette saree detailed with intricate embroidery and stone embellishments.", "available": true, "image": "docs/assets/product-images/dresses/2026/11/saree5.webp"}, {"code": "DRS-000004", "name": "Velvet Lehenga", "category": "LEHENGA", "categoryLabel": "Lehenga", "size": "L", "color": "Wine", "fabric": "Velvet", "price": "18500.00", "stock": 7, "description": "Handpicked velvet lehenga from the Vastra collection.", "available": true, "image": "docs/assets/product-images/dresses/2026/11/velvet-lehenga.jpg"}], "categories": [{"value": "SAREE", "label": "Sarees"}, {"value": "KURTA", "label": "Kurta"}, {"value": "LEHENGA", "label": "Lehenga"}, {"value": "DUPATTA", "label": "Dupatta"}, {"value": "GOWN", "label": "Gowns"}, {"value": "SALWAR_SUIT", "label": "Salwar suit"}, {"value": "OTHER", "label": "More"}]}</script>
+
+<div class="va-modal" id="login-modal" hidden>
+  <div class="va-modal-backdrop" data-close-modal></div>
+  <div class="va-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="login-title">
+    <button type="button" class="modal-close" data-close-modal aria-label="Close">×</button>
+    <h2 id="login-title">Sign in</h2>
+    <p class="va-modal-sub">Welcome back to Vastra.</p>
+    <form id="login-form" novalidate>
+      <label>Username<input type="text" name="username" autocomplete="username" required></label>
+      <label>Password<input type="password" name="password" autocomplete="current-password" required></label>
+      <p class="va-error" data-error hidden></p>
+      <button type="submit" class="store-btn primary full">Sign in</button>
+    </form>
+    <p class="va-switch">New here? <button type="button" data-open-signup>Create account</button></p>
+  </div>
+</div>
+
+<div class="va-modal" id="signup-modal" hidden>
+  <div class="va-modal-backdrop" data-close-modal></div>
+  <div class="va-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="signup-title">
+    <button type="button" class="modal-close" data-close-modal aria-label="Close">×</button>
+    <h2 id="signup-title">Create account</h2>
+    <p class="va-modal-sub">A few details and you are ready to shop.</p>
+    <form id="signup-form" novalidate>
+      <label>Username<input type="text" name="username" autocomplete="username" required></label>
+      <label>Phone number<input type="tel" name="phone" autocomplete="tel" required></label>
+      <label>Address<textarea name="address" autocomplete="street-address" required></textarea></label>
+      <label>Password<input type="password" name="password" autocomplete="new-password" required></label>
+      <p class="va-error" data-error hidden></p>
+      <button type="submit" class="store-btn primary full">Create account</button>
+    </form>
+    <p class="va-switch">Already have an account? <button type="button" data-open-login>Sign in</button></p>
+  </div>
+</div>
+
+<div class="va-toast" id="va-toast" role="status" hidden></div>
+
+<script src="docs/assets/static-preview.js"></script>
 </body>
 </html>

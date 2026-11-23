@@ -1,0 +1,145 @@
+/* Vastra static preview — account dialogs and small interactive helpers. */
+
+.va-modal[hidden],
+.va-toast[hidden] {
+  display: none !important;
+}
+
+.va-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+}
+
+.va-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(67, 47, 42, .55);
+  backdrop-filter: blur(3px);
+}
+
+.va-modal-dialog {
+  position: relative;
+  width: min(430px, 100%);
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  padding: 30px 28px 26px;
+  background: #fff;
+  border-top: 7px solid #c0455b;
+  border-radius: 18px;
+  box-shadow: 0 24px 60px rgba(67, 47, 42, .25);
+}
+
+.va-modal-dialog h2 {
+  margin: 0 0 4px;
+  color: #432f2a;
+  font-size: 1.6rem;
+}
+
+.va-modal-sub {
+  margin: 0 0 20px;
+  color: #7d5f58;
+  font-size: .92rem;
+}
+
+.va-modal form {
+  display: grid;
+  gap: 14px;
+}
+
+.va-modal label {
+  display: grid;
+  gap: 6px;
+  color: #432f2a;
+  font-size: .88rem;
+  font-weight: 600;
+}
+
+.va-modal input,
+.va-modal textarea {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid #eccbd2;
+  border-radius: 9px;
+  background: #fff;
+  color: #432f2a;
+  font: inherit;
+}
+
+.va-modal input:focus,
+.va-modal textarea:focus {
+  border-color: #c0455b;
+  outline: 2px solid #d7798b;
+  outline-offset: 1px;
+}
+
+.va-modal textarea {
+  min-height: 78px;
+  resize: vertical;
+}
+
+.va-error {
+  margin: 0;
+  color: #b32639;
+  font-size: .86rem;
+}
+
+.va-switch {
+  margin: 18px 0 0;
+  color: #7d5f58;
+  font-size: .9rem;
+  text-align: center;
+}
+
+.va-switch button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #96303f;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.va-modal .modal-close {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #7d5f58;
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.va-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  z-index: 110;
+  padding: 11px 20px;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: #432f2a;
+  box-shadow: 0 10px 30px rgba(67, 47, 42, .25);
+  color: #fff;
+  font-size: .9rem;
+}
+
+[data-open-login],
+[data-open-signup],
+[data-logout] {
+  cursor: pointer;
+}
+
+@media (max-width: 520px) {
+  .va-modal-dialog {
+    padding: 26px 20px 22px;
+  }
+}
