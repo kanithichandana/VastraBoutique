@@ -125,7 +125,7 @@ Useful commands from the activated terminal:
 
 ```powershell
 python manage.py check                 # verify settings
-python manage.py test boutique -v 2    # run the 25 tests
+python manage.py test boutique -v 2    # run the 36 tests
 python manage.py migrate               # apply migrations
 ```
 
@@ -134,6 +134,32 @@ You can also run these from **Terminal → Run Task…** in VS Code.
 > The storefront banner photograph is a free-to-use Pexels stock image
 > ([photo 16803130](https://www.pexels.com/photo/studio-shot-of-a-young-woman-wearing-a-pink-lehenga-dress-16803130/)).
 > The category arch tiles use boutique-supplied photographs.
+
+### GitHub Pages static preview
+
+GitHub Pages hosts **static files only**. It cannot run Django, Python, the
+database, sign-up, sign-in, the cart POSTs or the admin. This repository
+therefore includes a generated catalogue preview at:
+
+<https://kanithichandana.github.io/VastraBoutique/>
+
+It shows the real product grid, categories, images and styling, but account and
+cart links lead to a notice explaining that the full app must be run with
+`python manage.py runserver` (or deployed to a Python host such as Render or
+Railway).
+
+Both `index.html` (repo root) and `docs/index.html` are generated, so Pages
+works whether it is configured to publish from the repository root or the
+`/docs` folder. Assets live under `docs/assets/`.
+
+After changing products, CSS or images, regenerate and publish the preview:
+
+```powershell
+python scripts/build_static_preview.py
+git add -A
+git commit -m "Refresh static preview"
+git push origin main
+```
 
 ---
 
