@@ -143,8 +143,8 @@ therefore includes a generated catalogue preview at:
 
 <https://kanithichandana.github.io/VastraBoutique/>
 
-It shows the real product grid, categories, images and styling, but account and
-cart links lead to a notice explaining that the full app must be run with
+It shows the real product grid, categories, images and styling. Account and cart
+links simply return to the catalogue; the full interactive app must be run with
 `python manage.py runserver` (or deployed to a Python host such as Render or
 Railway).
 

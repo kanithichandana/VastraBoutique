@@ -5,7 +5,7 @@ copies its CSS/JS/images into ``docs/assets``, and writes a self-contained
 ``index.html`` (plus a root copy) so either Pages source setting works.
 
 Accounts, cart POSTs and the admin are unavailable on the static preview; their
-links point to an explanatory notice on the page.
+links simply return to the catalogue page.
 """
 
 from __future__ import annotations
@@ -29,19 +29,22 @@ from django.test import Client
 DOCS_DIR = BASE_DIR / "docs"
 ASSETS_DIR = DOCS_DIR / "assets"
 
-NOTICE = """
-<div id="accounts" class="static-preview-notice" style="background:#7a1027;color:#fff;padding:12px 20px;text-align:center;font:14px/1.5 sans-serif">
-  Static preview — sign up, sign in, cart and admin require the live Django server.
-  Run <code>python manage.py runserver</code> locally to use them.
-</div>
-"""
-
-
 def copy_assets() -> None:
-    if ASSETS_DIR.exists():
-        shutil.rmtree(ASSETS_DIR)
-    shutil.copytree(BASE_DIR / "boutique" / "static" / "boutique", ASSETS_DIR / "boutique")
-    shutil.copytree(BASE_DIR / "media", ASSETS_DIR / "product-images")
+    ASSETS_DIR.mkdir(parents=True, exist_ok=True)
+    shutil.copytree(
+        BASE_DIR / "boutique" / "static" / "boutique",
+        ASSETS_DIR / "boutique",
+        dirs_exist_ok=True,
+    )
+    # Older previews used assets/media; keep the published tree clean.
+    stale_media = ASSETS_DIR / "media"
+    if stale_media.exists():
+        shutil.rmtree(stale_media)
+    shutil.copytree(
+        BASE_DIR / "media",
+        ASSETS_DIR / "product-images",
+        dirs_exist_ok=True,
+    )
 
 
 def render_storefront() -> str:
@@ -52,17 +55,15 @@ def render_storefront() -> str:
 
 
 def rewrite(html: str, asset_prefix: str) -> str:
-    html = re.sub(r"(<body[^>]*>)", r"\1" + NOTICE, html, count=1)
-
     html = html.replace("/static/boutique/", f"{asset_prefix}boutique/")
     html = html.replace("/media/", f"{asset_prefix}product-images/")
 
     # Django URLs that need a server have no meaning on static hosting.
     html = re.sub(r'href="/\?[^"]*"', 'href="index.html#products"', html)
     html = re.sub(r'action="/#[^"]*"', 'action="index.html#products"', html)
-    html = re.sub(r'href="/login/[^"]*"', 'href="index.html#accounts"', html)
-    html = re.sub(r'href="/signup/[^"]*"', 'href="index.html#accounts"', html)
-    html = re.sub(r'href="/admin/[^"]*"', 'href="index.html#accounts"', html)
+    html = re.sub(r'href="/login/[^"]*"', 'href="index.html"', html)
+    html = re.sub(r'href="/signup/[^"]*"', 'href="index.html"', html)
+    html = re.sub(r'href="/admin/[^"]*"', 'href="index.html"', html)
     html = html.replace('href="/"', 'href="index.html"')
 
     return html
