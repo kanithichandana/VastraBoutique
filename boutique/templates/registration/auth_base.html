@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Account{% endblock %} · Vastra</title>
+  <meta name="description" content="Sign in to Vastra or create a customer account.">
+  <link rel="icon" type="image/svg+xml" href="{% static 'boutique/img/favicon.svg' %}">
+  <link rel="stylesheet" href="{% static 'boutique/css/app.css' %}?v=2">
+</head>
+<body class="login-page">
+  <div class="login-shell">
+    <section class="login-hero" aria-hidden="true">
+      <div class="hero-ornament">✦</div>
+      <img class="brand-logo brand-logo-large" src="{% static 'boutique/img/vastra-logo.svg' %}" alt="">
+      <h1>Vastra</h1>
+      <p class="hero-tagline">Traditionally elegant<br>Timeless fashion</p>
+      <div class="hero-divider"></div>
+      <p class="hero-note">Your account keeps your details and your handpicked cart in one place.</p>
+    </section>
+
+    <section class="login-panel">
+      <div class="login-card">
+        {% block card %}{% endblock %}
+        <p class="login-foot"><a href="{% url 'boutique:storefront' %}">← Back to the boutique</a></p>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

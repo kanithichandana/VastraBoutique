@@ -1,0 +1,4 @@
+# Optional development tooling (not needed to run the storefront).
+# Used only by scripts/capture_screenshots.py to regenerate docs/screenshots/.
+-r requirements.txt
+playwright>=1.40

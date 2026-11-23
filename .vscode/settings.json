@@ -1,0 +1,23 @@
+{
+  // Use the project's virtual environment (contains Django, Pillow, mysqlclient).
+  "python-envs.defaultEnvManager": "ms-python.python:venv",
+  "python-envs.workspaceSearchPaths": ["${workspaceFolder}/venv"],
+  "python.defaultInterpreterPath": "${workspaceFolder}/venv/Scripts/python.exe",
+  "python.terminal.activateEnvironment": true,
+
+  // Django / test discovery.
+  "django.settingsModule": "config.settings",
+  "python.testing.unittestEnabled": false,
+  "python.testing.pytestEnabled": false,
+
+  // Keep the explorer clean.
+  "files.exclude": {
+    "**/__pycache__": true,
+    "**/*.pyc": true
+  },
+  "search.exclude": {
+    "**/venv": true,
+    "**/staticfiles": true,
+    "**/db.sqlite3": true
+  }
+}

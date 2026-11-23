@@ -1,0 +1,32 @@
+{% extends "registration/auth_base.html" %}
+{% block title %}Sign in{% endblock %}
+
+{% block card %}
+  <p class="eyebrow">Welcome back</p>
+  <h2>Sign in</h2>
+  <p class="muted">Use your Vastra username and password.</p>
+
+  {% if form.non_field_errors %}
+    <div class="alert alert-error">{{ form.non_field_errors|striptags }}</div>
+  {% endif %}
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags|default:'info' }}">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+
+  <form method="post" action="{% url 'boutique:login' %}" class="stack-form" novalidate>
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{{ next }}">
+    {% for field in form %}
+      <div class="form-group">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+        {% for error in field.errors %}<span class="field-error">{{ error }}</span>{% endfor %}
+      </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-primary btn-block">Sign in →</button>
+  </form>
+
+  <p class="auth-switch">New to Vastra? <a href="{% url 'boutique:signup' %}">Create an account</a></p>
+{% endblock %}

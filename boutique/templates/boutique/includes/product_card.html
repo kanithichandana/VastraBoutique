@@ -1,0 +1,30 @@
+<article class="product-card">
+  <div class="product-image">
+    {% if dress.image %}
+      <img src="{{ dress.image.url }}" alt="{{ dress.name }}">
+    {% else %}
+      <span class="product-monogram">{{ dress.get_category_display|slice:":1" }}</span>
+    {% endif %}
+    <span class="product-code">{{ dress.code }}</span>
+  </div>
+  <div class="product-body">
+    <p class="product-category">{{ dress.get_category_display }}</p>
+    <h3>{{ dress.name }}</h3>
+    <p class="product-meta">{{ dress.color }} · {{ dress.size }}{% if dress.fabric %} · {{ dress.fabric }}{% endif %}</p>
+    <div class="product-footer">
+      <strong class="product-price">₹{{ dress.price|floatformat:2 }}</strong>
+      {% if dress.is_available %}
+        {% if customer %}
+          <form method="post" action="{% url 'boutique:cart_add' dress.pk %}" class="add-cart-form">
+            {% csrf_token %}
+            <button type="submit" class="add-cart">Add to cart</button>
+          </form>
+        {% else %}
+          <a class="add-cart add-cart-link" href="{% url 'boutique:login' %}?next={% url 'boutique:storefront' %}">Add to cart</a>
+        {% endif %}
+      {% else %}
+        <span class="unavailable">Unavailable</span>
+      {% endif %}
+    </div>
+  </div>
+</article>

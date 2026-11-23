@@ -1,0 +1,237 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vastra · Traditional Elegance</title>
+  <meta name="description" content="Vastra — a boutique collection of sarees, lehengas, kurtas and timeless ethnic wear.">
+  <link rel="icon" type="image/svg+xml" href="{% static 'boutique/img/favicon.svg' %}">
+  <link rel="stylesheet" href="{% static 'boutique/css/app.css' %}?v=2">
+  <link rel="stylesheet" href="{% static 'boutique/css/storefront.css' %}?v=7">
+</head>
+<body class="storefront-page">
+  <header class="store-header">
+    <div class="store-header-main">
+      <a class="store-brand" href="{% url 'boutique:storefront' %}">
+        <img class="brand-logo" src="{% static 'boutique/img/vastra-logo.svg' %}" alt="" width="52" height="52">
+        <span class="brand-words"><strong>Vastra</strong><small>boutique</small></span>
+      </a>
+
+      <nav class="store-nav" aria-label="Main navigation">
+        <a href="{% url 'boutique:storefront' %}#categories">Categories</a>
+        <a href="{% url 'boutique:storefront' %}#products">Products</a>
+      </nav>
+
+      <div class="store-search">
+        <form class="store-search-form" method="get" action="{% url 'boutique:storefront' %}#products" role="search">
+          {% if active_category %}
+            <input type="hidden" name="category" value="{{ active_category }}">
+          {% endif %}
+          <label class="sr-only" for="store-search">Search the collection</label>
+          <input id="store-search" type="search" name="q" value="{{ search_query }}"
+                 placeholder="Search products…" autocomplete="off">
+          <button type="submit" class="store-search-submit" aria-label="Search">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2" stroke-linecap="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="7"></circle>
+              <path d="m20 20-4-4"></path>
+            </svg>
+          </button>
+        </form>
+        {% if search_query %}
+          <a class="store-search-clear"
+             href="{% url 'boutique:storefront' %}?{% if active_category %}category={{ active_category|urlencode }}{% endif %}#products">Clear</a>
+        {% endif %}
+      </div>
+
+      <div class="store-actions">
+        {% if customer %}
+          <span class="account-chip">Hi, {{ customer.username }}</span>
+          <form method="post" action="{% url 'boutique:logout' %}" class="account-form">
+            {% csrf_token %}
+            <button type="submit" class="store-link link-button">Sign out</button>
+          </form>
+        {% else %}
+          <a class="store-link" href="{% url 'boutique:login' %}">Sign in</a>
+          <a class="store-link" href="{% url 'boutique:signup' %}">Create account</a>
+        {% endif %}
+        <button type="button" class="cart-button" data-open-cart>
+          Cart <span class="cart-count">{{ cart_count }}</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  {% if messages %}
+    <div class="store-messages" aria-live="polite">
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags|default:'info' }}">{{ message }}</div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <main>
+    <section class="store-hero">
+      <div class="store-hero-copy">
+        <h1>Where tradition<br>feels effortless.</h1>
+        <p class="store-hero-lead">
+          Handpicked sarees, lehengas and ethnic wear for the moments that
+          become memories. Create your account, then add your favourites to your cart.
+        </p>
+        <div class="store-hero-actions">
+          <a class="store-btn primary" href="#products">Explore collection →</a>
+        </div>
+        <p class="hero-tagline">Tradition · Elegance · Timeless fashion</p>
+      </div>
+      <div class="store-hero-media">
+        <img src="{% static 'boutique/img/hero-model.jpg' %}"
+             alt="Model wearing a handpicked ethnic ensemble from Vastra"
+             width="1600" height="2400">
+      </div>
+    </section>
+
+    <section class="category-section" id="categories">
+      <div class="category-inner">
+        <div class="section-intro">
+          <div><h2>Find your kind of beautiful</h2></div>
+        </div>
+        <div class="category-arches">
+          {% for category in categories %}
+            <a class="category-arch {% if category.value == active_category %}active{% endif %}"
+               href="{% if category.value %}?category={{ category.value }}#products{% else %}#products{% endif %}">
+              <span class="category-thumb">
+                <img src="{% static category.image %}" alt="{{ category.label }}"
+                     width="640" height="800" loading="lazy">
+              </span>
+              <strong>{{ category.label }}</strong>
+            </a>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+
+    <section class="product-section" id="products">
+      <div class="section-intro">
+        <div>
+          <h2>
+            {% if search_query %}
+              Results for “{{ search_query }}”
+            {% else %}
+              Products{% if active_category %} · {{ active_category|title }}{% endif %}
+            {% endif %}
+          </h2>
+        </div>
+      </div>
+
+      {% if group_by_category %}
+        {% for group in category_groups %}
+          <div class="category-group">
+            <div class="category-group-heading">
+              <h3>{{ group.label }}</h3>
+              <span>{{ group.dresses|length }} item{{ group.dresses|length|pluralize }}</span>
+            </div>
+            <div class="product-grid">
+              {% for dress in group.dresses %}
+                {% include 'boutique/includes/product_card.html' %}
+              {% endfor %}
+            </div>
+          </div>
+        {% empty %}
+          <p class="empty-products">
+            No products match your search. Try another term or clear the search.
+          </p>
+        {% endfor %}
+      {% else %}
+        <div class="product-grid">
+          {% for dress in dresses %}
+            {% include 'boutique/includes/product_card.html' %}
+          {% empty %}
+            <p class="empty-products">
+              {% if search_query %}
+                No products match your search. Try another term or clear the search.
+              {% else %}
+                No products in this category yet. Please check another category.
+              {% endif %}
+            </p>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </section>
+  </main>
+
+  <footer class="store-footer" id="contact">
+    <div class="footer-inner">
+      <h2 class="footer-heading">Contact us</h2>
+      <div class="footer-contact">
+        <div class="footer-item">
+          <span class="footer-icon">⌖</span>
+          <div>
+            <small>Our office address</small>
+            <span>{{ contact.location }}</span>
+          </div>
+        </div>
+        <div class="footer-item">
+          <span class="footer-icon">✉</span>
+          <div>
+            <small>General enquiries</small>
+            <a href="mailto:{{ contact.email }}">{{ contact.email }}</a>
+          </div>
+        </div>
+        <div class="footer-item">
+          <span class="footer-icon">☎</span>
+          <div>
+            <small>Call us</small>
+            <a href="tel:{{ contact.phone|slugify }}">{{ contact.phone }}</a>
+          </div>
+        </div>
+        <div class="footer-item">
+          <span class="footer-icon">◷</span>
+          <div>
+            <small>Our timing</small>
+            <span>{{ contact.hours }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="drawer-scrim" id="cart-scrim" hidden></div>
+  <aside class="cart-drawer" id="cart-drawer" aria-label="Shopping cart" hidden>
+    <div class="cart-head">
+      <h2>Your cart</h2>
+      <button type="button" class="modal-close" data-close-cart aria-label="Close">×</button>
+    </div>
+    <div class="cart-body">
+      {% for item in cart_items %}
+        <div class="cart-line">
+          <div>
+            <strong>{{ item.dress.name }}</strong>
+            <small>{{ item.dress.code }} · Qty {{ item.quantity }}</small>
+          </div>
+          <span>₹{{ item.line_total|floatformat:2 }}</span>
+          <form method="post" action="{% url 'boutique:cart_remove' item.dress.pk %}">
+            {% csrf_token %}
+            <button type="submit" class="cart-remove" aria-label="Remove {{ item.dress.name }}">×</button>
+          </form>
+        </div>
+      {% empty %}
+        <p class="cart-empty">
+          {% if customer %}Your cart is empty. Add a piece you love.{% else %}Sign in to start your cart.{% endif %}
+        </p>
+      {% endfor %}
+    </div>
+    <div class="cart-foot">
+      <div class="cart-total"><span>Total</span><strong>₹{{ cart_total|floatformat:2 }}</strong></div>
+      <p class="cart-hint">Your cart is saved to your account. The boutique will confirm stock when you get in touch.</p>
+      {% if customer %}
+        <button type="button" class="store-btn primary full" data-close-cart>Buy now</button>
+      {% else %}
+        <a class="store-btn primary full" href="{% url 'boutique:login' %}">Sign in to add items</a>
+      {% endif %}
+    </div>
+  </aside>
+
+  <script src="{% static 'boutique/js/storefront.js' %}?v=2"></script>
+</body>
+</html>
