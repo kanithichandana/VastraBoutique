@@ -137,16 +137,25 @@ You can also run these from **Terminal → Run Task…** in VS Code.
 
 ### GitHub Pages static preview
 
-GitHub Pages hosts **static files only**. It cannot run Django, Python, the
-database, sign-up, sign-in, the cart POSTs or the admin. This repository
-therefore includes a generated catalogue preview at:
+GitHub Pages hosts **static files only**. It cannot run Django, Python or the
+database, so this repository includes a generated interactive preview at:
 
 <https://kanithichandana.github.io/VastraBoutique/>
 
-It shows the real product grid, categories, images and styling. Account and cart
-links simply return to the catalogue; the full interactive app must be run with
-`python manage.py runserver` (or deployed to a Python host such as Render or
-Railway).
+The preview uses the real product grid, categories, images and styling, plus a
+small browser layer so these controls work on the live URL:
+
+- category tiles filter the products
+- header search filters by name, code, colour, fabric or description (searching
+  a category name shows labelled category groups)
+- create account and sign in (saved in the browser's `localStorage`, with hashed
+  passwords)
+- add to cart, remove from cart and per-account cart totals
+
+These accounts and carts are **device-local**: they are not stored on a server,
+do not sync between browsers, and there is no admin on the Pages preview. The
+full Django app with a real database and admin runs with
+`python manage.py runserver` (or a Python host such as Render or Railway).
 
 Both `index.html` (repo root) and `docs/index.html` are generated, so Pages
 works whether it is configured to publish from the repository root or the
@@ -266,6 +275,8 @@ vastra/
 │   ├── management/commands/ # seed_demo command (dresses only)
 │   ├── tests/               # storefront/account/cart + CSRF-enforced tests
 │   └── migrations/          # schema migrations
+├── docs/                    # generated GitHub Pages preview + screenshots
+├── scripts/                 # screenshot capture + static preview builder
 ├── media/                   # uploaded dress images
 ├── manage.py
 ├── requirements.txt
