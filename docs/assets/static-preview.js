@@ -36,7 +36,14 @@
   }
 
   function writeValue(key, value) {
-    localStorage.setItem(key, JSON.stringify(value));
+    try {
+      localStorage.setItem(key, JSON.stringify(value));
+      return true;
+    } catch (error) {
+      console.error("Vastra preview could not save browser data", error);
+      toast("Browser storage is blocked. Allow site data and try again.");
+      return false;
+    }
   }
 
   function escapeHtml(value) {
@@ -55,15 +62,28 @@
   }
 
   function newSalt() {
-    const bytes = new Uint8Array(16);
-    crypto.getRandomValues(bytes);
-    return toHex(bytes);
+    if (globalThis.crypto && crypto.getRandomValues) {
+      const bytes = new Uint8Array(16);
+      crypto.getRandomValues(bytes);
+      return toHex(bytes);
+    }
+    // Fallback for non-secure contexts such as opening the HTML from disk.
+    return `${Date.now().toString(16)}-${Math.random().toString(16).slice(2)}`;
   }
 
   async function hashPassword(password, salt) {
-    const bytes = new TextEncoder().encode(`${salt}:${password}`);
-    const digest = await crypto.subtle.digest("SHA-256", bytes);
-    return toHex(new Uint8Array(digest));
+    const input = `${salt}:${password}`;
+    if (globalThis.crypto && crypto.subtle && crypto.subtle.digest) {
+      const bytes = new TextEncoder().encode(input);
+      const digest = await crypto.subtle.digest("SHA-256", bytes);
+      return toHex(new Uint8Array(digest));
+    }
+    // Fallback keeps the preview usable outside HTTPS; accounts stay local only.
+    let hash = 0;
+    for (let index = 0; index < input.length; index += 1) {
+      hash = (hash * 31 + input.charCodeAt(index)) | 0;
+    }
+    return `fallback-${(hash >>> 0).toString(16)}-${input.length}`;
   }
 
   function getAccounts() {
@@ -439,8 +459,13 @@
 
       const salt = newSalt();
       const hash = await hashPassword(password, salt);
-      accounts.push({ username, phone, address, salt, hash });
-      writeValue(KEYS.accounts, accounts);
+      const nextAccounts = accounts.concat([
+        { username, phone, address, salt, hash },
+      ]);
+      if (!writeValue(KEYS.accounts, nextAccounts)) {
+        showError(form, "Browser storage is blocked. Allow site data and try again.");
+        return;
+      }
 
       form.reset();
       closeModals();
@@ -480,7 +505,10 @@
         return;
       }
 
-      writeValue(KEYS.session, account.username);
+      if (!writeValue(KEYS.session, account.username)) {
+        showError(form, "Browser storage is blocked. Allow site data and try again.");
+        return;
+      }
       form.reset();
       closeModals();
       renderCart();

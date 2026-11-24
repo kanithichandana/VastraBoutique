@@ -223,7 +223,7 @@ def rewrite(html: str, asset_prefix: str, data: dict) -> str:
     # Load the browser layer and its styles.
     html = html.replace(
         "</head>",
-        f'<link rel="stylesheet" href="{asset_prefix}static-preview.css">\n</head>',
+        f'<link rel="stylesheet" href="{asset_prefix}static-preview.css?v=4">\n</head>',
         1,
     )
     payload = json.dumps(data, ensure_ascii=False).replace("</", "<\\/")
@@ -232,7 +232,7 @@ def rewrite(html: str, asset_prefix: str, data: dict) -> str:
         (
             f'<script id="vastra-static-data" type="application/json">{payload}</script>\n'
             f"{MODALS}\n"
-            f'<script src="{asset_prefix}static-preview.js"></script>\n'
+            f'<script src="{asset_prefix}static-preview.js?v=4"></script>\n'
             "</body>"
         ),
         1,
